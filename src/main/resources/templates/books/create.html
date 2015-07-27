@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title th:text="#{application_name}">Developer Bookshelf</title>
+
+<!-- Main style sheet -->
+<link href="../../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" media="screen" />
+
+<!-- Bootstrap 3 -->
+<link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+<link href="../../static/css/bootstrap-theme.min.css" th:href="@{/css/bootstrap-theme.min.css}" rel="stylesheet" media="screen" />
+
+<!-- Bootstrap Datepicker -->
+<!-- As shown here {@link http://eternicode.github.io/bootstrap-datepicker/?markup=input&format=yyyy-mm-dd&weekStart=&startDate=&endDate=&startView=0&minViewMode=0&todayBtn=false&clearBtn=false&language=en&orientation=auto&multidate=&multidateSeparator=&keyboardNavigation=on&forceParse=on#sandbox} -->
+<link href="../../static/css/bootstrap-datepicker3.standalone.min.css" th:href="@{/css/bootstrap-datepicker3.standalone.min.css}" rel="stylesheet" media="screen" />
+
+</head>
+
+<body>
+	<div th:replace="fragments/header :: header">Header</div>
+	<div class="container">
+			<h1 th:text="(${book.id == null}? #{label_book_new}: #{label_book_update})">Form Title</h1>
+
+			<form action="#" th:object="${book}" enctype="multipart/form-data"
+				method="post" th:action="@{/create}">
+				
+				<div th:if="${message}">
+					<div id="message" th:class="${message.type}" th:text="${message.message}">Message area</div>
+				</div>
+	
+				<label for="name" th:text="#{label_book_name} + '*'">Label Book Name</label> 
+					<input type="text" id="name" size="60" th:field="*{name}" />
+				<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="error">Name Errors</div>
+				<p />
+	
+				<label for="publisher" th:text="#{label_book_publisher} + '*'">Label Book Publisher</label> 
+				<input type="text" id="publisher" size="60" th:field="*{publisher}" />
+				<div th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}" th:class="error">Publisher Errors</div>
+				<p />
+	
+				<label for="dateOfPublication" th:text="#{label_date_of_publication}">Label	date of publication</label> 
+					<input type="text" id="dateOfPublication" th:field="*{dateOfPublication}" readonly="readonly" />
+				<div th:if="${#fields.hasErrors('dateOfPublication')}" th:errors="*{dateOfPublication}">Date of Publication Error</div>
+				<p />
+	
+				<label for="bookDescription" th:text="#{label_book_description}">Label Book Description</label>
+				<textarea cols="60" rows="8" id="bookDescription" th:field="*{description}">Book Description textarea</textarea>
+				<div th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Book Description Error</div>
+				<p />
+	
+				<label for="file" th:text="#{label_book_photo}">Label Book Photo</label> 
+				<input name="file" type="file" />
+				<p />
+	
+				<input type="hidden" th:field="*{id}" />
+	
+				<button type="submit" class="btn btn-success " th:text="#{btn_save}">Save</button>				
+				
+				<button type="reset" class="btn btn-primary" th:text="#{btn_reset}">Reset</button>
+
+			</form>
+		<div th:replace="fragments/footer :: footer">Footer</div>
+	</div>
+
+
+	<!-- Bootstrap-Datepicker JavaScript-->
+	<!-- As shown here {@link http://eternicode.github.io/bootstrap-datepicker/?markup=input&format=yyyy-mm-dd&weekStart=&startDate=&endDate=&startView=0&minViewMode=0&todayBtn=false&clearBtn=false&language=en&orientation=auto&multidate=&multidateSeparator=&keyboardNavigation=on&forceParse=on#sandbox} -->
+	<script src="../../static/js/bootstrap-datepicker.min.js" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+	
+	<!-- CKEditor JavaScript -->
+	<script src="../../static/ckeditor/standard/ckeditor.js" th:src="@{/ckeditor/standard/ckeditor.js}"></script>
+	<script src="../../static/ckeditor/standard/adapters/jquery.js" th:src="@{/ckeditor/standard/adapters/jquery.js}"></script>
+
+	<!-- Bootstrap-Datepicker & CKEditor -->
+	<script>
+		$(function() {
+			$('#dateOfPublication').datepicker({
+		     	format: "yyyy-mm-dd",   
+			    autoclose: true,
+			});
+			
+			$("#bookDescription").ckeditor({
+				toolbar : 'Basic',
+				uiColor : '#CCCCCC'
+			});
+		});
+	</script>
+</body>
+</html>
+
+

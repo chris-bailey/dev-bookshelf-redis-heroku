@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title th:text="#{application_name}">Developer Bookshelf</title>
+
+<!-- Main style sheet -->
+<link href="../../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" media="screen" />
+
+<!-- Bootstrap 3 -->
+<link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+<link href="../../static/css/bootstrap-theme.min.css" th:href="@{/css/bootstrap-theme.min.css}" rel="stylesheet" media="screen" />
+
+
+</head>
+<body>
+
+	<div th:replace="fragments/header :: header"></div>
+
+	<div class="container">
+		<div id="message" th:if="${message}" th:class="${message.type}" th:text="${message.message}">Message area</div>
+
+		<h1 th:text="#{label_book_list}">Book List</h1>
+
+		<div th:if="!${#lists.isEmpty(books)}">
+
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th th:text="#{label_book_name}">Book name</th>
+						<th th:text="#{label_book_publisher}">Publisher</th>
+						<th th:text="#{label_date_of_publication}">Date of Publication</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="book : ${books}">
+						<td><a href="show-book.html" th:href="@{/{id}(id=${book.id})}" th:text="${book.name}">Book
+								name</a></td>
+						<td th:text="${book.publisher}">Book publisher</td>
+						<td th:text="${#joda.mediumDate(book.dateOfPublication)}">Date of publication</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+			<a href="addBook.html" th:href="@{/create}" id="btnAddBook"
+			class="btn btn-success btn-lg" th:text="#{menu_add_book}">Menu add book</a>
+			<br/> <br/> <br/> <br/>
+		</div>
+		
+	<div id="resetAllBooks">
+		<p th:utext="#{book_reset_all}">If you don't see any books above, or you would like to reset
+			the application, please click on the 'Reset' button.</p>
+			
+		<a href="resetBooks.html" th:href="@{/reset}" class="btn btn-primary"
+			th:text="#{label_book_reset_all}">Label Book Reset All</a>
+	</div>
+
+	<div th:replace="fragments/footer :: footer">Footer</div>
+
+	</div> <!-- end Container -->
+</body>
+</html>
+
+

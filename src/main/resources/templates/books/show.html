@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title th:text="#{application_name}">Developer Bookshelf</title>
+
+<!-- Main style sheet -->
+<link href="../../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" media="screen" />
+
+<!-- Bootstrap 3 -->
+<link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+<link href="../../static/css/bootstrap-theme.min.css" th:href="@{/css/bootstrap-theme.min.css}" rel="stylesheet" media="screen" />
+
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<h1 th:text="${label_book_info}">Label Book Info</h1>
+
+		<div id="message" th:if="${message}" th:class="${message.type}" 
+			th:text="${message.message}">Message area</div>
+		
+		<table class="table table-striped table-bordered">
+			<tr>
+				<td th:text="#{label_book_name}">Label Book name</td>
+				<td th:text="${book.name}">Book name</td>
+			</tr>
+			<tr>
+				<td th:text="#{label_book_publisher}">Label Book publisher</td>
+				<td th:text="${book.publisher}">Publisher</td>
+			</tr>
+			<tr>
+				<td th:text="#{label_date_of_publication}">Label Date of Publication</td>
+				<td th:text="${#joda.longDate(book.dateOfPublication)}">Date of publication</td>
+			</tr>
+			<tr>
+				<td th:text="#{label_book_description}">Label Book Description</td>
+				<!-- Utilizing "unescaped text" -->
+				<td th:utext="${book.description}">Book Description</td>
+			</tr>
+			<tr>
+				<td th:text="#{label_book_photo}">Label Book Photo</td>
+				<td><img th:src="@{/photo/{id}(id=${book.id})}"></img></td>
+			</tr>
+		</table>
+
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+			<a id="btnEditBook" href="edit-book.html" th:href="@{/update/{id}(id=${book.id})}"
+				class="btn btn-primary" th:text="#{label_book_update}">Label Book Update</a> 
+			
+			<a id="btnDeleteBook" href="delete-book.html" th:href="@{/delete/{id}(id=${book.id})}"
+				class="btn btn-danger" th:text="#{label_book_delete}">Label Book Delete</a>
+		</div>
+		
+		<div th:replace="fragments/footer :: footer">Footer</div>
+	</div>
+</body>
+</html>
+
+

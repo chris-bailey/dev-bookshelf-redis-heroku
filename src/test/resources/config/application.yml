@@ -1,0 +1,8 @@
+server:
+    port: 10344
+    address: localhost
+
+spring:
+    redis:
+        host:127.0.0.1
+        port:6379
