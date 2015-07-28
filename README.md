@@ -40,12 +40,12 @@ $ git status
 
 If a Git repository is not associated with the project, then create one before continuing. 
 
-Create a new application on Heroku  
+Create a new application on Heroku.  
 ```
 $ heroku create
 ```
 
-Rename your Heroku application if interested  
+Rename your Heroku application if interested.  
 ``` 
 $ heroku apps:rename new-name
 ```
