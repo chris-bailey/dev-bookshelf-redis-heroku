@@ -4,7 +4,7 @@ This demo application has been created as an example of deploying Spring Boot + 
 ###Technology Stack###
 - Spring Boot, no-xml Spring MVC 4 web application for Servlet 3.0 environment
 - Spring Data Redis
-- Database (Redis, Heroku Redis)  
+- Database (Redis, Redis To Go)  
 - Thymeleaf templates with added Joda Time & Spring Security Dialects  
 - Heroku fully cloud deployable
 - Testing (JUnit/Mockito/MockMVC/AssertJ/Hamcrest)  
@@ -52,14 +52,11 @@ $ heroku apps:rename new-name
 
 //TODO - Start here and work your way down.  You are using 'redistogo' and not 'heroku-redis' as heroku-redis was useless.
 
-Add a Redis database to your Heroku application with Heroku Redis.
+Add a Redis database to your Heroku application with the Redis To Go add-on.
 Note that your Heroku account must have a credit card attached in order to use free add-ons other than the PostgreSQL and MySQL add-ons.
 ```
-$ heroku addons:create heroku-redis:hobby-dev  
+$ heroku addons:create redistogo:nano  
 ```
-
-Retrieve your Redis database name from the Heroku Dashboard by clicking on the Heroku Redis addon.  Place the database name into the `src/main/resources/config/application-prod.yml` configuration file in the database field.
-
 
 Deploy project to Heroku.  
 ```
