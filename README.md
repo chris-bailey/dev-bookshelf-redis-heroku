@@ -50,8 +50,6 @@ Rename your Heroku application if interested
 $ heroku apps:rename new-name
 ```
 
-//TODO - Start here and work your way down.  You are using 'redistogo' and not 'heroku-redis' as heroku-redis was useless.
-
 Add a Redis database to your Heroku application with the Redis To Go add-on.
 Note that your Heroku account must have a credit card attached in order to use free add-ons other than the PostgreSQL and MySQL add-ons.
 ```
