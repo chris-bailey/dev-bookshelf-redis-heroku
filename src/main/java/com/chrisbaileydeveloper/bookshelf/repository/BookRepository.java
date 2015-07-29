@@ -29,11 +29,6 @@ public class BookRepository {
 		return redisTemplate.opsForValue().get(key);
 	}
 	
-	public void delete(Book b) {
-		String key = b.getId();
-		redisTemplate.opsForValue().getOperations().delete(key);
-	}
-	
 	public List<Book> findAll() {
 		List<Book> books = new ArrayList<>();
 		
@@ -46,6 +41,12 @@ public class BookRepository {
 		
 		return books;
 	}
+	
+	public void delete(Book b) {
+		String key = b.getId();
+		redisTemplate.opsForValue().getOperations().delete(key);
+	}
+	
 	 
 	public void deleteAll() {
 		Set<String> keys = redisTemplate.keys("*");
